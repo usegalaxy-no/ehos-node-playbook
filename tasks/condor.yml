@@ -1,10 +1,10 @@
 ---
-- name: Install and cofigure condor
+- name: Install and configure condor
 
   block:
 
   - name: htcondor gpg-key
-      rpm_key:
+      ansible.buildin.rpm_key:
         key: "https://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor"
         state: present
 
