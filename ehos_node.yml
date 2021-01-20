@@ -1,4 +1,4 @@
-- hosts: ehos_servers
+- hosts: nodes
   become: true
 
   tags:
@@ -11,7 +11,7 @@
     
   tasks:
     - name: get local- hostname
-      include:tasks/localhost.yml
+      include: tasks/localhost.yml
 
     - debug: msg={{ local_hostname }}
 
