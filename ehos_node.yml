@@ -5,13 +5,7 @@
     - ehos
 
   vars_files:
-    - secret_group_vars/global.vault
-    - group_vars/global.yml
-    - group_vars/telegraf.yml
-    - group_vars/galaxy.yml
-    - secret_group_vars/ehos.vault
-    # extends the telegraf vars to include ehos monitoring
-    - group_vars/ehos.yml
+#    - group_vars/ehos.yml
 
   vars:
     
@@ -19,9 +13,10 @@
     - name: get local- hostname
       include:tasks/localhost.yml
 
-    - debug:
-      msg="{{ local_hostname }}"
+    - debug: msg={{ local_hostname }}
 
+
+  post_tasks:
 
     - name: Install Dependencies
       package:
