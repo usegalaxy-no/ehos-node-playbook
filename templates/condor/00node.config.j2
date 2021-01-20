@@ -1,5 +1,5 @@
 ##  What machine is your central manager?
-CONDOR_HOST = {{inventory_hostname}}
+CONDOR_HOST = {{local_hostname}} 
 use ROLE: Execute
 SEC_PASSWORD_FILE = /etc/condor/passwords.d/POOL
 SEC_DAEMON_AUTHENTICATION = REQUIRED
@@ -10,7 +10,7 @@ SEC_NEGOTIATOR_INTEGRITY = REQUIRED
 SEC_NEGOTIATOR_AUTHENTICATION_METHODS = PASSWORD
 SEC_CLIENT_AUTHENTICATION_METHODS = FS, PASSWORD, KERBEROS, GSI
 ALLOW_DAEMON = condor_pool@*/*, condor@*/$(IP_ADDRESS)
-ALLOW_NEGOTIATOR = condor_pool@*/{{inventory_hostname}}
+ALLOW_NEGOTIATOR = condor_pool@*/{{local_hostname}}
 UID_DOMAIN = {{condor_uid_domain|default(ehos_cluster)}}
 STARTER_ALLOW_RUNAS_OWNER = True
 TRUST_UID_DOMAIN = true

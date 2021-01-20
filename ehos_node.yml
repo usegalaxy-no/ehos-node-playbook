@@ -10,13 +10,16 @@
   vars:
     
   tasks:
-    - name: get local- hostname
+    - name: get local-hostname
       include: tasks/localhost.yml
 
     - debug: msg={{ local_hostname }}
 
+    - name: setup condor
+      include: tasks/condor.yml
 
-  post_tasks:
+
+  post_tasksi:
 
     - name: Install Dependencies
       package:
@@ -45,7 +48,7 @@
     - geerlingguy.repo-epel
 #    - role: dj-wasabi.telegraf
 #    - galaxyproject.cvmfs
-    - geerlingguy.nfs
+#    - geerlingguy.nfs
 #    - galaxyproject.pulsar
 #    - role: galaxyproject.galaxy
 #      galaxy_manage_mutable_setup: yes
