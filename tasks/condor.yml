@@ -19,7 +19,7 @@
 
     - name: install condor
       yum: name=condo
-r
+
     - name: Copy htcondor master-config
       template:
         src: "templates/condor/00node.config"
