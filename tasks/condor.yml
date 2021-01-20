@@ -20,9 +20,9 @@
     - name: install condor
       yum: name=condor
 
-    - name: Copy htcondor master-config
+    - name: Copy htcondor node-config
       template:
-        src: "templates/condor/00node.config"
+        src: "templates/condor/00node.config.j2"
         dest: /etc/condor/config.d/00node.config
         owner: condor
         group: condor
