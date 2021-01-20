@@ -11,6 +11,6 @@ SEC_NEGOTIATOR_AUTHENTICATION_METHODS = PASSWORD
 SEC_CLIENT_AUTHENTICATION_METHODS = FS, PASSWORD, KERBEROS, GSI
 ALLOW_DAEMON = condor_pool@*/*, condor@*/$(IP_ADDRESS)
 ALLOW_NEGOTIATOR = condor_pool@*/{{local_hostname}}
-UID_DOMAIN = {{condor_uid_domain|default(ehos_cluster)}}
+UID_DOMAIN = {{condor_uid_domain|default("ehos_cluster")}}
 STARTER_ALLOW_RUNAS_OWNER = True
 TRUST_UID_DOMAIN = true
