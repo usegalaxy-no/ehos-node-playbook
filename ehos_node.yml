@@ -14,10 +14,15 @@
     - group_vars/ehos.yml
 
   vars:
-    - ehos_ansible_path: /usr/local/ansible/ehos-node
     
   tasks:
-    - debug: msg={{ hostname.stdout }}
+    - name: get local- hostname
+      include:tasks/localhost.yml
+
+    - debug:
+      msg="{{ local_hostname }}"
+
+
     - name: Install Dependencies
       package:
         name:
@@ -28,30 +33,29 @@
          - bzip2
          - vim
          - python36-virtualenv
-         - gcc
+#         - gcc
          - libcurl-devel
         state: present
         update_cache: yes
 
 
-  tasks:
 
-  post_tasks:
-    - name: restart nfs
-      systemd:
-        state: restarted
-        name: nfs
+#  post_tasks:
+#    - name: restart nfs
+#      systemd:
+#        state: restarted
+#        name: nfs
 
   roles:
-#    - geerlingguy.repo-epel
+    - geerlingguy.repo-epel
 #    - role: dj-wasabi.telegraf
 #    - galaxyproject.cvmfs
-#    - geerlingguy.nfs
+    - geerlingguy.nfs
 #    - galaxyproject.pulsar
 #    - role: galaxyproject.galaxy
 #      galaxy_manage_mutable_setup: yes
 #      galaxy_manage_database: no
-    - usegalaxy-no.ehos
+# - usegalaxy-no.ehos
 
 
 

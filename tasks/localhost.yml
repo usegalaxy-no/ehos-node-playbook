@@ -1,13 +1,15 @@
-- local_action: command hostname
-  register: hostname_cat
+
+- name: get local hostname
+
+  block:
+
+  - local_action: command hostname
+    register: hostname_cat
 
 
-- name: set local_hostname
-  set_fact:
-    local_hostname: "{{ _hostname_cat.stdout }}"
+  - name: set local_hostname
+    set_fact:
+      local_hostname: "{{ _hostname_cat.stdout }}"
 
-
-- debug:
-  msg="{{ local_hostname }}"
 
 
