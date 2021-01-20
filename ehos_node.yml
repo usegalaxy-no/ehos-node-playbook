@@ -19,7 +19,7 @@
       include: tasks/condor.yml
 
 
-  post_tasksi:
+  post_tasks:
 
     - name: Install Dependencies
       package:
