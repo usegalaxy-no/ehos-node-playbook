@@ -1,0 +1,53 @@
+---
+- name: Install and cofigure condor
+
+  block:
+
+  - name: htcondor gpg-key
+      rpm_key:
+        key: "https://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor"
+        state: present
+
+    - name: Add htcondor repo
+      yum_repository:
+        name: "htcondor"
+        description: "HTCondor RPM Repository"
+        file: "htcondor"
+        baseurl: "https://research.cs.wisc.edu/htcondor/yum/stable/8.8/rhel{{ansible_distribution_major_version}}"
+        enabled: yes
+        priority: "1"
+
+    - name: install condor
+      yum: name=condor
+
+
+    - name: Copy htcondor master-config
+      template:
+        src: "{{ehos_condor_master}}"
+        dest: /etc/condor/config.d/99ehos.config
+        owner: condor
+        group: condor
+      register: condor_config
+
+    - name: create condor password directory
+      become: true
+      file:
+        path: /etc/condor/passwords.d/
+        state: directory
+        owner: root
+        group: root
+        mode: 0700
+
+    - name: set condor password
+      become: true
+      command: condor_store_cred add -c -p {{condor_password}}
+
+    - name: restart htcondor
+      service: name=condor state=restarted
+      when: condor_config.changed
+
+    - name: Make sure condor is running
+      systemd:
+        state: started
+        name: condor
+
