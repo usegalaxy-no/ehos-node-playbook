@@ -3,8 +3,8 @@
 
   block:
 
-  - name: htcondor gpg-key
-      ansible.buildin.rpm_key:
+    - name: htcondor gpg-key
+      rpm_key:
         key: "https://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor"
         state: present
 
@@ -18,13 +18,12 @@
         priority: "1"
 
     - name: install condor
-      yum: name=condor
-
-
+      yum: name=condo
+r
     - name: Copy htcondor master-config
       template:
-        src: "{{ehos_condor_master}}"
-        dest: /etc/condor/config.d/99ehos.config
+        src: "templates/condor/00node.config"
+        dest: /etc/condor/config.d/00node.config
         owner: condor
         group: condor
       register: condor_config
@@ -38,9 +37,14 @@
         group: root
         mode: 0700
 
-    - name: set condor password
-      become: true
-      command: condor_store_cred add -c -p {{condor_password}}
+
+    - name: Copy htcondor password-config
+      template:
+        src: "/etc/condor/passwords.d/POOL"
+        dest: /etc/condor/passwords.d/POOL
+        owner: root
+        group: root
+        mode: 0600
 
     - name: restart htcondor
       service: name=condor state=restarted
