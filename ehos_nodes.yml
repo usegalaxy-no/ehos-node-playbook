@@ -1,4 +1,4 @@
-- hosts: nodes
+- hosts: all
   become: true
 
   tags:
@@ -45,7 +45,7 @@
 #        name: nfs
 
   roles:
-    - geerlingguy.repo-epel
+#    - geerlingguy.repo-epel
 #    - role: dj-wasabi.telegraf
 #    - galaxyproject.cvmfs
 #    - geerlingguy.nfs

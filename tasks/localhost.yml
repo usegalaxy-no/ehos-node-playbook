@@ -4,10 +4,12 @@
   block:
 
   - local_action: command hostname
+    become: false
     register: _hostname_cat
 
   - set_fact:
       local_hostname: "{{ _hostname_cat.stdout }}"
+
 
 
 
